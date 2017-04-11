@@ -13,7 +13,7 @@ class Utilisateur
 	/**
 	 * @ORM\Id
 	 * @ORM\Column(type="integer")
-	 * @ORM\GeneratedValue
+	 * @ORM\GeneratedValue(strategy="AUTO")
 	 */
 	protected $uti_id;
 	
@@ -71,7 +71,7 @@ class Utilisateur
 	public function setNom($uti_nom)
 	{
 		$this->uti_nom = $uti_nom;
-		return $uti_this;
+		return $this;
 	}
 	
 	public function setPrenom($uti_prenom)

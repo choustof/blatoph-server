@@ -1,3 +1,11 @@
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
+
+utilisateurs:
+    resource: AppBundle\Controller\UtilisateurController
+    type:     rest
+    
+albums:
+    resource: AppBundle\Controller\AlbumController
+    type:     rest
