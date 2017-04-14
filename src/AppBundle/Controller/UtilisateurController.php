@@ -91,7 +91,7 @@ class UtilisateurController extends Controller {
 	}
 	
 	/**
-	 * @Rest\View()
+	 * @Rest\View(statusCode=Response::HTTP_CREATED)
 	 * @Rest\Post("/utilisateurs")
 	 */
 	public function postUtilisateursAction(Request $request)

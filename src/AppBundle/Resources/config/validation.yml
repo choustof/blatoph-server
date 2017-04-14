@@ -1,0 +1,27 @@
+AppBundle\Entity\Utilisateur:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: name
+    properties:
+        uti_nom:
+            - NotBlank: ~
+            - Type: string
+        uti_prenom:
+            - NotBlank: ~
+            - Type: string
+        uti_email:
+            - NotBlank: ~
+            - Type: string
+        uti_mot_de_pass:
+            - NotBlank: ~
+            - Type: string
+            
+AppBundle\Entity\Utilisateur:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: name
+    properties:
+        alb_titre:
+            - NotBlank: ~
+            - Type: string
+        alb_date_creation:
+            - NotBlank: ~
+            - Type: string

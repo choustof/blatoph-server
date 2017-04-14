@@ -9,8 +9,8 @@ class AlbumType extends AbstractType
 {
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
-		$builder->add('alb_titre');
-		$builder->add('alb_date_creation');
+		$builder->add('titre');
+		$builder->add('date_creation');
 	}
 	
 	public function configureOptions(OptionsResolver $resolver)

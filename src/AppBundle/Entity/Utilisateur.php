@@ -15,80 +15,80 @@ class Utilisateur
 	 * @ORM\Column(type="integer")
 	 * @ORM\GeneratedValue(strategy="AUTO")
 	 */
-	protected $uti_id;
+	protected $id;
 	
 	/**
 	 * @ORM\Column(type="string")
 	 */
-	protected $uti_nom;
+	protected $nom;
 	
 	/**
 	 * @ORM\Column(type="string")
 	 */
-	protected $uti_prenom;
+	protected $prenom;
 	
 	/**
 	 * @ORM\Column(type="string")
 	 */
-	protected $uti_email;
+	protected $email;
 	
 	/**
 	 * @ORM\Column(type="string")
 	 */
-	protected $uti_mot_de_pass;
+	protected $mot_de_pass;
 	
 	public function getId()
 	{
-		return $this->uti_id;
+		return $this->id;
 	}
 	
 	public function getNom()
 	{
-		return $this->uti_nom;
+		return $this->nom;
 	}
 	
 	public function getPrenom()
 	{
-		return $this->uti_prenom;
+		return $this->prenom;
 	}
 	
 	public function getEmail()
 	{
-		return $this->uti_email;
+		return $this->email;
 	}
 	
 	public function getMotDePass()
 	{
-		return $this->uti_mot_de_pass;
+		return $this->mot_de_pass;
 	}
 	
-	public function setId($uti_id)
+	public function setId($id)
 	{
-		$this->uti_id = $uti_id;
+		$this->id = $id;
 		return $this;
 	}
 	
-	public function setNom($uti_nom)
+	public function setNom($nom)
 	{
-		$this->uti_nom = $uti_nom;
+		$this->nom = $nom;
 		return $this;
 	}
 	
-	public function setPrenom($uti_prenom)
+	public function setPrenom($prenom)
 	{
-		$this->uti_prenom = $uti_prenom;
+		$this->prenom = $prenom;
 		return $this;
 	}
 	
-	public function setEmail($uti_email)
+	public function setEmail($email)
 	{
-		$this->uti_email = $uti_email;
+		$this->email = $email;
 		return $this;
 	}
 	
-	public function setMotDePass($uti_mot_de_pass)
+	public function setMotDePass($mot_de_pass)
 	{
-		$this->uti_mot_de_pass = $uti_mot_de_pass;
+		$this->mot_de_pass = $mot_de_pass;
 		return $this;
 	}
 }

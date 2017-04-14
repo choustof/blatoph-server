@@ -15,48 +15,48 @@ class Album
 	 * @ORM\Column(type="integer")
 	 * @ORM\GeneratedValue(strategy="AUTO")
 	 */
-	protected $alb_id;
+	protected $id;
 	
 	/**
 	 * @ORM\Column(type="string")
 	 */
-	protected $alb_titre;
+	protected $titre;
 	
 	/**
-	 * @ORM\Column(type="datetime")
+	 * @ORM\Column(type="string")
 	 */
-	protected $alb_date_creation;
+	protected $date_creation;
 	
 	public function getId()
 	{
-		return $this->alb_id;
+		return $this->id;
 	}
 	
 	public function getTitre()
 	{
-		return $this->alb_titre;
+		return $this->titre;
 	}
 	
 	public function getDateCreation()
 	{
-		return $this->alb_date_creation;
+		return $this->date_creation;
 	}
 	
-	public function setId($alb_id)
+	public function setId($id)
 	{
-		$this->alb_id = $alb_id;
+		$this->id = $id;
 		return $this;
 	}
 	
-	public function setTitre($alb_titre)
+	public function setTitre($titre)
 	{
-		$this->alb_titre = $alb_titre;
-		return this;
+		$this->titre = $titre;
+		return $this;
 	}
 	
-	public function setDateCreation($alb_date_creation)
+	public function setDateCreation($date_creation)
 	{
-		$this->alb_date_creation = $alb_date_creation;
+		$this->date_creation = $date_creation;
 		return $this;
 	}
 

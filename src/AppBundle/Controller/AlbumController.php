@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\ViewHandler;
 use FOS\RestBundle\View\View;
+use AppBundle\Form\Type\AlbumType;
 use AppBundle\Entity\Album;
 
 class AlbumController extends Controller {
@@ -44,8 +45,28 @@ class AlbumController extends Controller {
 			return new JsonResponse(['message' => 'Album non trouve'], Response::HTTP_NOT_FOUND);
 		}
 		
-		
 		// Gestion de la réponse
 		return $album;
+	}
+	
+	/**
+	 * @Rest\View(statusCode=Response::HTTP_CREATED)
+	 * @Rest\Post("/albums")
+	 */
+	public function postAlbumsAction(Request $request)
+	{
+		$album = new Album();
+		
+		$form = $this->createForm(AlbumType::class, $album);
+		$form->submit($request->request->all());
+		
+		if ($form->isValid()) {
+			$em = $this->get('doctrine.orm.entity_manager');
+			$em->persist($album);
+			$em->flush();
+			return $album;
+		} else {
+			return $form;
+		}
 	}
 }
