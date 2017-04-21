@@ -5,7 +5,7 @@
 !/var/cache
 /var/cache/*
 !var/cache/.gitkeep
-!/var/logs
+/var/logs
 /var/logs/*
 !var/logs/.gitkeep
 !/var/sessions
@@ -14,5 +14,5 @@
 !var/SymfonyRequirements.php
 /vendor/
 /web/bundles/
-/logs/
 *.log
+/logs/
