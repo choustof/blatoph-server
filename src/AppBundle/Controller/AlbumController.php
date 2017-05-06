@@ -69,4 +69,52 @@ class AlbumController extends Controller {
 			return $form;
 		}
 	}
+	
+	/**
+	 * @Rest\View()
+	 * @Rest\Put("/albums/{id}")
+	 */
+	public function updateAlbumAction(Request $request) {
+		
+		$logger = $this->get('logger');
+$logger->info('Tout va bien, je suis en version 2.3');
+$logger->error('Je ne peux pas trouver la voiture n°53');
+$logger->critical('Il manque un ; !!');
+
+		/* @var $album Album */
+		
+		if (empty ( $album )) {
+			return new JsonResponse ( [
+					'message' => 'Album non trouvé'
+			], Response::HTTP_NOT_FOUND );
+		}
+		
+		$form = $this->createForm ( AlbumType::class, $album );
+		
+		$form->submit ( $request->request->all () );
+		
+		if ($form->isValid ()) {
+			$em = $this->get ( 'doctrine.orm.entity_manager' );
+			$em->merge ( $album );
+			$em->flush ();
+			return $album;
+		} else {
+			return $form;
+		}
+	}
+	
+	/**
+	 * @Rest\View(statusCode=Response::HTTP_NO_CONTENT)
+	 * @Rest\Delete("/albums/{id}")
+	 */
+	public function removeAlbumAction(Request $request) {
+		$em = $this->get ( 'doctrine.orm.entity_manager' );
+		$album = $em->getRepository ( 'AppBundle:Album' )->find ( $request->get ( 'id' ) );
+		/* @var $album Album */
+		
+		if ($album) {
+			$em->remove ( $album );
+			$em->flush ();
+		}
+	}
 }

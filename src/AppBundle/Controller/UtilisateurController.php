@@ -12,6 +12,7 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\ViewHandler;
 use FOS\RestBundle\View\View;
 use AppBundle\Entity\Utilisateur;
+use AppBundle\Form\Type\UtilisateurType;
 
 class UtilisateurController extends Controller {
 	
@@ -45,12 +46,14 @@ class UtilisateurController extends Controller {
 		
 		// Création d'une vue FOSRestBundle
 		// $view = View::create($formatted);
-		/*$view = View::create ( $utilisateurs );
-		$view->setFormat ( 'json' );*/
+		/*
+		 * $view = View::create ( $utilisateurs );
+		 * $view->setFormat ( 'json' );
+		 */
 		
 		// Gestion de la réponse
 		// return $viewHandler->handle($view);
-		//return $view;
+		// return $view;
 		return $utilisateurs;
 	}
 	
@@ -68,25 +71,28 @@ class UtilisateurController extends Controller {
 			], Response::HTTP_NOT_FOUND );
 		}
 		
-		/*$formatted = [ 
-				'uti_id' => $utilisateur->getId (),
-				'uti_nom' => $utilisateur->getNom (),
-				'uti_prenom' => $utilisateur->getPrenom (),
-				'uti_email' => $utilisateur->getEmail (),
-				'uti_mot_de_pass' => $utilisateur->getMotDePass () 
-		];
-		*/
+		/*
+		 * $formatted = [
+		 * 'uti_id' => $utilisateur->getId (),
+		 * 'uti_nom' => $utilisateur->getNom (),
+		 * 'uti_prenom' => $utilisateur->getPrenom (),
+		 * 'uti_email' => $utilisateur->getEmail (),
+		 * 'uti_mot_de_pass' => $utilisateur->getMotDePass ()
+		 * ];
+		 */
 		// Récupération du view handler
-		//$viewHandler = $this->get ( 'fos_rest.view_handler' );
+		// $viewHandler = $this->get ( 'fos_rest.view_handler' );
 		
 		// Création d'une vue FOSRestBundle
-		//$view = View::create ( $formatted );
-		/*$view = View::create ( $utilisateur );
-		$view->setFormat ( 'json' );*/
+		// $view = View::create ( $formatted );
+		/*
+		 * $view = View::create ( $utilisateur );
+		 * $view->setFormat ( 'json' );
+		 */
 		
 		// Gestion de la réponse
-		//return $viewHandler->handle ( $view );
-		//return $view;
+		// return $viewHandler->handle ( $view );
+		// return $view;
 		return $utilisateur;
 	}
 	
@@ -94,18 +100,55 @@ class UtilisateurController extends Controller {
 	 * @Rest\View(statusCode=Response::HTTP_CREATED)
 	 * @Rest\Post("/utilisateurs")
 	 */
-	public function postUtilisateursAction(Request $request)
-	{
-		$utilisateur = new Utilisateur();
-		$utilisateur->setNom($request->get('uti_nom'))
-					->setPrenom($request->get('uti_prenom'))
-					->setEmail($request->get('uti_email'))
-					->setMotDePass($request->get('uti_mot_de_pass'));
+	public function postUtilisateursAction(Request $request) {
+		$utilisateur = new Utilisateur ();
+		$utilisateur->setNom ( $request->get ( 'uti_nom' ) )->setPrenom ( $request->get ( 'uti_prenom' ) )->setEmail ( $request->get ( 'uti_email' ) )->setMotDePass ( $request->get ( 'uti_mot_de_pass' ) );
 		
-		$em = $this->get('doctrine.orm.entity_manager');
-		$em->persist($utilisateur);
-		$em->flush();
+		$em = $this->get ( 'doctrine.orm.entity_manager' );
+		$em->persist ( $utilisateur );
+		$em->flush ();
+	}
+	
+	/**
+	 * @Rest\View()
+	 * @Rest\Put("/utilisateurs/{id}")
+	 */
+	public function updateUtilisateurAction(Request $request) {
+		$utilisateur = $this->get ( 'doctrine.orm.entity_manager' )->getRepository ( 'AppBundle:Utilisateur' )->find ( $request->get ( 'id' ) );
+		/* @var $utilisateur Utilisateur */
 		
+		if (empty ( $utilisateur )) {
+			return new JsonResponse ( [ 
+					'message' => 'Utilisateur non trouvé' 
+			], Response::HTTP_NOT_FOUND );
+		}
 		
+		$form = $this->createForm ( UtilisateurType::class, $utilisateur );
+		
+		$form->submit ( $request->request->all () );
+		
+		if ($form->isValid ()) {
+			$em = $this->get ( 'doctrine.orm.entity_manager' );
+			$em->merge ( $utilisateur );
+			$em->flush ();
+			return $utilisateur;
+		} else {
+			return $form;
+		}
+	}
+	
+	/**
+	 * @Rest\View(statusCode=Response::HTTP_NO_CONTENT)
+	 * @Rest\Delete("/utilisateurs/{id}")
+	 */
+	public function removeUtilisateurAction(Request $request) {
+		$em = $this->get ( 'doctrine.orm.entity_manager' );
+		$utilisateur = $em->getRepository ( 'AppBundle:Utilisateur' )->find ( $request->get ( 'id' ) );
+		/* @var $utilisateur Utilisateur */
+		
+		if ($utilisateur) {
+			$em->remove ( $utilisateur );
+			$em->flush ();
+		}
 	}
 }

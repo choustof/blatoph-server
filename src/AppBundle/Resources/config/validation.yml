@@ -15,7 +15,7 @@ AppBundle\Entity\Utilisateur:
             - NotBlank: ~
             - Type: string
             
-AppBundle\Entity\Utilisateur:
+AppBundle\Entity\Album:
     constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: name
     properties:
