@@ -5,10 +5,10 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity()
- * @ORM\Table(name="albums")
+ * @ORM\Table(name="photos")
  */
 
-class Album
+class Photo
 {
 	/**
 	 * @ORM\Id
@@ -28,9 +28,19 @@ class Album
 	protected $date_creation;
 	
 	/**
+	 * @ORM\Column(type="string")
+	 */
+	protected $legende;
+	
+	/**
+	 * @ORM\Column(type="string")
+	 */
+	protected $image;
+	
+	/**
 	 * @ORM\Column(type="integer")
 	 */
-	protected $uti_id;
+	protected $alb_id;
 	
 	public function getId()
 	{
@@ -47,9 +57,19 @@ class Album
 		return $this->date_creation;
 	}
 	
-	public function getUtiId()
+	public function getLegende()
 	{
-		return $this->uti_id;
+		return $this->legende;
+	}
+	
+	public function getImage()
+	{
+		return $this->image;
+	}
+	
+	public function getAlbId()
+	{
+		return $this->alb_id;
 	}
 	
 	public function setId($id)
@@ -70,9 +90,21 @@ class Album
 		return $this;
 	}
 	
-	public function setUtiId($uti_id)
+	public function setLegende($legende)
 	{
-		$this->uti_id = $uti_id;
+		$this->legende = $legende;
+		return $this;
+	}
+	
+	public function setImage($image)
+	{
+		$this->image = $image;
+		return $this;
+	}
+	
+	public function setAlbId($alb_id)
+	{
+		$this->alb_id = $alb_id;
 		return $this;
 	}
 

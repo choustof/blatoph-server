@@ -97,6 +97,24 @@ class UtilisateurController extends Controller {
 	}
 	
 	/**
+	 * @Rest\View()
+	 * @Rest\Get("/utilisateurs/{id}/albums")
+	 */
+	
+	/*public function getUtilisateurAlbumsAction($id) {
+		$album = $this->get ( 'doctrine.orm.entity_manager' )->getRepository ( 'AppBundle:Albums' )->find ( $id);
+		/* @var $album Album */
+		
+	/*	if (empty ( $album )) {
+			return new JsonResponse ( [
+					'message' => 'Album non trouve'
+			], Response::HTTP_NOT_FOUND );
+		}
+		
+		return $album;
+	}
+	
+	/**
 	 * @Rest\View(statusCode=Response::HTTP_CREATED)
 	 * @Rest\Post("/utilisateurs")
 	 */

@@ -76,13 +76,7 @@ class AlbumController extends Controller {
 	 */
 	public function updateAlbumAction(Request $request) {
 		
-		$logger = $this->get('logger');
-$logger->info('Tout va bien, je suis en version 2.3');
-$logger->error('Je ne peux pas trouver la voiture n°53');
-$logger->critical('Il manque un ; !!');
-
 		/* @var $album Album */
-		
 		if (empty ( $album )) {
 			return new JsonResponse ( [
 					'message' => 'Album non trouvé'
