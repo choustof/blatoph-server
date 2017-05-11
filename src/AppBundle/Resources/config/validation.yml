@@ -25,3 +25,17 @@ AppBundle\Entity\Album:
         alb_date_creation:
             - NotBlank: ~
             - Type: string
+        uti_id:
+            - NotBlank: ~
+            - Type: string
+            
+AppBundle\Entity\Photo:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: name
+    properties:
+        alb_titre:
+            - NotBlank: ~
+            - Type: string
+        alb_date_creation:
+            - NotBlank: ~
+            - Type: string

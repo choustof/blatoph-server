@@ -10,6 +10,10 @@ albums:
     resource: AppBundle\Controller\AlbumController
     type:     rest
     
+photos:
+    resource: AppBundle\Controller\PhotoController
+    type:     rest
+    
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
 

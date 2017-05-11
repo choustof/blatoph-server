@@ -21,7 +21,7 @@ class PhotoController extends Controller {
 	 * @Rest\Get("/photos")
 	 */
 	
-	public function getPhotoAction(Request $request) {
+	public function getPhotosAction(Request $request) {
 		$photos = $this->get ( 'doctrine.orm.entity_manager' )->getRepository ( 'AppBundle:Photo' )->findAll ();
 		/* @var $Photos Photo[] */
 		
@@ -53,7 +53,7 @@ class PhotoController extends Controller {
 	 * @Rest\View(statusCode=Response::HTTP_CREATED)
 	 * @Rest\Post("/photos")
 	 */
-	public function postPhotoAction(Request $request)
+	public function postPhotosAction(Request $request)
 	{
 		$photo = new Photo();
 		
