@@ -13,6 +13,8 @@ use FOS\RestBundle\View\ViewHandler;
 use FOS\RestBundle\View\View;
 use AppBundle\Entity\Utilisateur;
 use AppBundle\Form\Type\UtilisateurType;
+use Doctrine\ORM\Query\Expr\From;
+use AppBundle\Entity\AlbumPartage;
 
 class UtilisateurController extends Controller {
 	
@@ -94,6 +96,26 @@ class UtilisateurController extends Controller {
 		// return $viewHandler->handle ( $view );
 		// return $view;
 		return $utilisateur;
+	}
+	
+	/**
+	 * @Rest\View()
+	 * @Rest\Get("/utilisateurs/{id}/albumPartages")
+	 */
+	public function getUtilisateurAlbumsPartagesAction($id, Request $request) {
+		
+		$em = $this->getDoctrine()->getManager();
+		$query = $em->createQuery(
+				'SELECT alb.id, alb.titre, alb.date_creation, alb.uti_id
+				FROM AppBundle:Album alb
+				JOIN AppBundle:AlbumPartage alp WITH alb.id = alp.alb_id
+				JOIN AppBundle:Utilisateur uti WITH uti.id = alp.uti_id
+				WHERE uti.id = 1'
+				);
+				
+		$albums = $query->getResult();
+		
+		return $albums;
 	}
 	
 	/**

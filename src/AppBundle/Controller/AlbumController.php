@@ -75,6 +75,9 @@ class AlbumController extends Controller {
 	 * @Rest\Put("/albums/{id}")
 	 */
 	public function updateAlbumAction(Request $request) {
+		$album = $this->get('doctrine.orm.entity_manager')
+					  ->getRepository('AppBundle:Album')
+					  ->find($request->get('id')); 
 		
 		/* @var $album Album */
 		if (empty ( $album )) {
@@ -110,5 +113,6 @@ class AlbumController extends Controller {
 			$em->remove ( $album );
 			$em->flush ();
 		}
+		
 	}
 }

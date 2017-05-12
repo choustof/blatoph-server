@@ -1,41 +1,50 @@
 AppBundle\Entity\Utilisateur:
     constraints:
-        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: name
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: email
     properties:
-        uti_nom:
+        nom:
             - NotBlank: ~
             - Type: string
-        uti_prenom:
+        prenom:
             - NotBlank: ~
             - Type: string
-        uti_email:
+        email:
             - NotBlank: ~
             - Type: string
-        uti_mot_de_pass:
+        mot_de_pass:
             - NotBlank: ~
             - Type: string
             
 AppBundle\Entity\Album:
     constraints:
-        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: name
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: id
     properties:
-        alb_titre:
+        titre:
             - NotBlank: ~
             - Type: string
-        alb_date_creation:
+        date_creation:
             - NotBlank: ~
             - Type: string
         uti_id:
             - NotBlank: ~
-            - Type: string
+            - Type: integer
             
 AppBundle\Entity\Photo:
     constraints:
-        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: name
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: id
     properties:
-        alb_titre:
+        titre:
             - NotBlank: ~
             - Type: string
-        alb_date_creation:
+        date_creation:
             - NotBlank: ~
             - Type: string
+        legende:
+            - NotBlank: ~
+            - Type: string
+        image:
+            - NotBlank: ~
+            - Type: string
+        alb_id:
+            - NotBlank: ~
+            - Type: integer
