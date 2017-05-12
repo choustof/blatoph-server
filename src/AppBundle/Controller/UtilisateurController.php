@@ -102,7 +102,8 @@ class UtilisateurController extends Controller {
 	 * @Rest\View()
 	 * @Rest\Get("/utilisateurs/{id}/albumPartages")
 	 */
-	public function getUtilisateurAlbumsPartagesAction($id, Request $request) {
+	public function getUtilisateurAlbumPartagesAction($id, Request $request) {
+		
 		
 		$em = $this->getDoctrine()->getManager();
 		$query = $em->createQuery(
@@ -110,8 +111,9 @@ class UtilisateurController extends Controller {
 				FROM AppBundle:Album alb
 				JOIN AppBundle:AlbumPartage alp WITH alb.id = alp.alb_id
 				JOIN AppBundle:Utilisateur uti WITH uti.id = alp.uti_id
-				WHERE uti.id = 1'
-				);
+				WHERE uti.id = :uti_id'
+				)
+				->setParameter('uti_id', $id);
 				
 		$albums = $query->getResult();
 		
