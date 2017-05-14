@@ -1,0 +1,1 @@
+Mise a jour base de données: php bin/console doctrine:schema:update --force
