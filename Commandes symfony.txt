@@ -1,1 +1,2 @@
 Mise a jour base de données: php bin/console doctrine:schema:update --force
+Liste routing: php bin/console debug:router
