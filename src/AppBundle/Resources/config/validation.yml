@@ -48,3 +48,4 @@ AppBundle\Entity\Photo:
         alb_id:
             - NotBlank: ~
             - Type: integer
+            

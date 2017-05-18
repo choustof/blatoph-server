@@ -9,6 +9,7 @@ class AmiType extends AbstractType {
 	
 	public function buildForm(FormBuilderInterface $builder, array $options) {
 		$builder->add('uti_id');
+		$builder->add('ami_id');
 	}
 	
 	public function configureOptions(OptionsResolver $resolver) {

@@ -124,7 +124,7 @@ class UtilisateurController extends Controller {
 	 * @Rest\View()
 	 * @Rest\Get("/utilisateurs/{id}/albums")
 	 */
-	public function getUtilisateurAlbumAction($id, Request $request) {
+	public function getUtilisateurAlbumsAction($id, Request $request) {
 		
 		
 		$em = $this->getDoctrine()->getManager();
@@ -133,6 +133,27 @@ class UtilisateurController extends Controller {
 				FROM AppBundle:Album alb
 				JOIN AppBundle:Utilisateur uti WITH uti.id = alb.uti_id
 				WHERE uti.id = :uti_id'
+				)
+				->setParameter('uti_id', $id);
+				
+				$albums = $query->getResult();
+				
+				return $albums;
+	}
+	
+	/**
+	 * @Rest\View()
+	 * @Rest\Get("/utilisateurs/{id}/amis")
+	 */
+	public function getUtilisateurAmisAction($id, Request $request) {
+		
+		
+		$em = $this->getDoctrine()->getManager();
+		$query = $em->createQuery(
+				'SELECT uti.id, uti.nom, uti.prenom, uti.email
+				FROM AppBundle:Utilisateur uti
+				JOIN AppBundle:Ami ami WITH uti.id = ami.ami_id
+				WHERE ami.uti_id = :uti_id'
 				)
 				->setParameter('uti_id', $id);
 				

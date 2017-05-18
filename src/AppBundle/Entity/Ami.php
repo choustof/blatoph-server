@@ -21,6 +21,11 @@ class Ami
 	 */
 	protected $uti_id;
 	
+	/**
+	 * @ORM\Column(type="integer")
+	 */
+	protected $ami_id;
+	
 	
 	public function getId()
 	{
@@ -32,6 +37,11 @@ class Ami
 		return $this->uti_id;
 	}
 	
+	public function getAmiId()
+	{
+		return $this->ami_id;
+	}
+	
 	public function setId($id)
 	{
 		$this->id = $id;
@@ -41,6 +51,12 @@ class Ami
 	public function setUtiId($uti_id)
 	{
 		$this->uti_id = $uti_id;
+		return $this;
+	}
+	
+	public function setAmiId($ami_id)
+	{
+		$this->ami_id = $ami_id;
 		return $this;
 	}
 }
