@@ -116,6 +116,10 @@ class AlbumController extends Controller {
 		
 	}
 	
+	/**
+	 * @Rest\View()
+	 * @Rest\Get("/albums/{id}/photos")
+	 */
 	public function getAlbumPhotoAction($id, Request $request) {
 		
 		
@@ -123,8 +127,8 @@ class AlbumController extends Controller {
 		$query = $em->createQuery(
 				'SELECT ph.id, ph.titre, ph.date_creation, ph.legende, ph.image, ph.alb_id, ph.uti_id
 				FROM AppBundle:Photo ph
-				JOIN AppBundle:Album alb WITH ph.id = alb.ph_id
-				WHERE uti.id = :uti_id'
+				JOIN AppBundle:Album alb WITH alb.id = ph.alb_id
+				WHERE alb.id = :alb_id'
 				)
 				->setParameter('alb_id', $id);
 				
