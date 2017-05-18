@@ -15,6 +15,7 @@ class PhotoType extends AbstractType
 		$builder->add('legende');
 		$builder->add('image', FileType::class, array('label' => 'Image (JPG file)'));
 		$builder->add('alb_id');
+		$builder->add('uti_id');
 	}
 	
 	public function configureOptions(OptionsResolver $resolver)
