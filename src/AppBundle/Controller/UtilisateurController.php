@@ -124,6 +124,27 @@ class UtilisateurController extends Controller {
 	 * @Rest\View()
 	 * @Rest\Get("/utilisateurs/{id}/albums")
 	 */
+	public function getUtilisateurAlbumAction($id, Request $request) {
+		
+		
+		$em = $this->getDoctrine()->getManager();
+		$query = $em->createQuery(
+				'SELECT alb.id, alb.titre, alb.date_creation, alb.uti_id
+				FROM AppBundle:Album alb
+				JOIN AppBundle:Utilisateur uti WITH uti.id = alb.uti_id
+				WHERE uti.id = :uti_id'
+				)
+				->setParameter('uti_id', $id);
+				
+				$albums = $query->getResult();
+				
+				return $albums;
+	}
+	
+	/**
+	 * @Rest\View()
+	 * @Rest\Get("/utilisateurs/{id}/albums")
+	 */
 	
 	/*public function getUtilisateurAlbumsAction($id) {
 		$album = $this->get ( 'doctrine.orm.entity_manager' )->getRepository ( 'AppBundle:Albums' )->find ( $id);
