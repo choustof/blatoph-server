@@ -42,6 +42,11 @@ class Photo
 	 */
 	protected $alb_id;
 	
+	/**
+	 * @ORM\Column(type="integer")
+	 */
+	protected $uti_id;
+	
 	public function getId()
 	{
 		return $this->id;
@@ -70,6 +75,11 @@ class Photo
 	public function getAlbId()
 	{
 		return $this->alb_id;
+	}
+	
+	public function getUtiId()
+	{
+		return $this->uti_id;
 	}
 	
 	public function setId($id)
@@ -105,6 +115,12 @@ class Photo
 	public function setAlbId($alb_id)
 	{
 		$this->alb_id = $alb_id;
+		return $this;
+	}
+	
+	public function setUtiId($uti_id)
+	{
+		$this->uti_id = $uti_id;
 		return $this;
 	}
 

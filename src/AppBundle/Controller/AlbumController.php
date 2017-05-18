@@ -115,4 +115,21 @@ class AlbumController extends Controller {
 		}
 		
 	}
+	
+	public function getAlbumPhotoAction($id, Request $request) {
+		
+		
+		$em = $this->getDoctrine()->getManager();
+		$query = $em->createQuery(
+				'SELECT ph.id, ph.titre, ph.date_creation, ph.legende, ph.image, ph.alb_id, ph.uti_id
+				FROM AppBundle:Photo ph
+				JOIN AppBundle:Album alb WITH ph.id = alb.ph_id
+				WHERE uti.id = :uti_id'
+				)
+				->setParameter('alb_id', $id);
+				
+				$photos = $query->getResult();
+				
+				return $photos;
+	}
 }
