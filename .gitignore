@@ -16,3 +16,4 @@
 /web/bundles/
 *.log
 /logs/*
+logs/blatoph-server-access.log
