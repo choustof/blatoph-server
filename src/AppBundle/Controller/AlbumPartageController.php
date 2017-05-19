@@ -22,16 +22,6 @@ class AlbumPartageController extends Controller {
 	 */
 	
 	public function getAlbumPartagesAction(Request $request) {
-		
-		$logger = $this->get('logger');
-		$logger->info('Passage dns albums');
-		$logger->error('');
-		
-		$logger->critical('Passage', array(
-				// include extra "context" info in your logs
-				'cause' => 'test',
-		));
-		
 		$albumPartages = $this->get ( 'doctrine.orm.entity_manager' )->getRepository ( 'AppBundle:AlbumPartage' )->findAll ();
 		/* @var $albumPartages AlbumPartage[] */
 		
@@ -120,5 +110,6 @@ class AlbumPartageController extends Controller {
 			$em->remove ( $albumPartage );
 			$em->flush ();
 		}
+		
 	}
 }

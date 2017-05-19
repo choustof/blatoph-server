@@ -50,10 +50,32 @@ class AlbumController extends Controller {
 	}
 	
 	/**
+	 * @Rest\View()
+	 * @Rest\Get("/albums/{id}/photos")
+	 */
+	public function getAlbumPhotoAction($id, Request $request) {
+		
+		
+		$em = $this->getDoctrine()->getManager();
+		$query = $em->createQuery(
+				'SELECT ph.id, ph.titre, ph.date_creation, ph.legende, ph.image, ph.alb_id
+				FROM AppBundle:Photo ph
+				JOIN AppBundle:Album alb WITH alb.id = ph.alb_id
+				WHERE alb.id = :alb_id'
+				)
+				->setParameter('alb_id', $id);
+				
+				$photos = $query->getResult();
+				
+				return $photos;
+	}
+	
+	
+	/**
 	 * @Rest\View(statusCode=Response::HTTP_CREATED)
 	 * @Rest\Post("/albums")
 	 */
-	public function postAlbumsAction(Request $request)
+	public function postAlbumAction(Request $request)
 	{
 		$album = new Album();
 		
@@ -116,24 +138,4 @@ class AlbumController extends Controller {
 		
 	}
 	
-	/**
-	 * @Rest\View()
-	 * @Rest\Get("/albums/{id}/photos")
-	 */
-	public function getAlbumPhotoAction($id, Request $request) {
-		
-		
-		$em = $this->getDoctrine()->getManager();
-		$query = $em->createQuery(
-				'SELECT ph.id, ph.titre, ph.date_creation, ph.legende, ph.image, ph.alb_id, ph.uti_id
-				FROM AppBundle:Photo ph
-				JOIN AppBundle:Album alb WITH alb.id = ph.alb_id
-				WHERE alb.id = :alb_id'
-				)
-				->setParameter('alb_id', $id);
-				
-				$photos = $query->getResult();
-				
-				return $photos;
-	}
 }

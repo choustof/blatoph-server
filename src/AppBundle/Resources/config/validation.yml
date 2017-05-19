@@ -48,4 +48,25 @@ AppBundle\Entity\Photo:
         alb_id:
             - NotBlank: ~
             - Type: integer
+     
+AppBundle\Entity\Ami:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: id
+    properties:
+        uti_id:
+            - NotBlank: ~
+            - Type: integer
+        ami_id:
+            - NotBlank: ~
+            - Type: integer
             
+AppBundle\Entity\AlbumPartage:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: id
+    properties:
+        uti_id:
+            - NotBlank: ~
+            - Type: integer
+        alb_id:
+            - NotBlank: ~
+            - Type: integer

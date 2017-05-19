@@ -31,31 +31,6 @@ class UtilisateurController extends Controller {
 					'message' => 'Aucun utilisateur trouve' 
 			], Response::HTTP_NOT_FOUND );
 		}
-		/*
-		 * $formatted = [ ];
-		 * foreach ( $utilisateurs as $utilisateur ) {
-		 * $formatted [] = [
-		 * 'uti_id' => $utilisateur->getId (),
-		 * 'uti_nom' => $utilisateur->getNom (),
-		 * 'uti_prenom' => $utilisateur->getPrenom (),
-		 * 'uti_email' => $utilisateur->getEmail (),
-		 * 'uti_mot_de_pass' => $utilisateur->getMotDePass ()
-		 * ];
-		 * }
-		 */
-		// Récupération du view handler
-		// $viewHandler = $this->get('fos_rest.view_handler');
-		
-		// Création d'une vue FOSRestBundle
-		// $view = View::create($formatted);
-		/*
-		 * $view = View::create ( $utilisateurs );
-		 * $view->setFormat ( 'json' );
-		 */
-		
-		// Gestion de la réponse
-		// return $viewHandler->handle($view);
-		// return $view;
 		return $utilisateurs;
 	}
 	
@@ -73,28 +48,6 @@ class UtilisateurController extends Controller {
 			], Response::HTTP_NOT_FOUND );
 		}
 		
-		/*
-		 * $formatted = [
-		 * 'uti_id' => $utilisateur->getId (),
-		 * 'uti_nom' => $utilisateur->getNom (),
-		 * 'uti_prenom' => $utilisateur->getPrenom (),
-		 * 'uti_email' => $utilisateur->getEmail (),
-		 * 'uti_mot_de_pass' => $utilisateur->getMotDePass ()
-		 * ];
-		 */
-		// Récupération du view handler
-		// $viewHandler = $this->get ( 'fos_rest.view_handler' );
-		
-		// Création d'une vue FOSRestBundle
-		// $view = View::create ( $formatted );
-		/*
-		 * $view = View::create ( $utilisateur );
-		 * $view->setFormat ( 'json' );
-		 */
-		
-		// Gestion de la réponse
-		// return $viewHandler->handle ( $view );
-		// return $view;
 		return $utilisateur;
 	}
 	
@@ -103,19 +56,18 @@ class UtilisateurController extends Controller {
 	 * @Rest\Get("/utilisateurs/{id}/albumPartages")
 	 */
 	public function getUtilisateurAlbumPartagesAction($id, Request $request) {
-		
-		
-		$em = $this->getDoctrine()->getManager();
-		$query = $em->createQuery(
-				'SELECT alb.id, alb.titre, alb.date_creation, alb.uti_id
+		$em = $this->getDoctrine ()->getManager ();
+		$query = $em->createQuery ( 'SELECT alb.id, alb.titre, alb.date_creation, alb.uti_id
 				FROM AppBundle:Album alb
 				JOIN AppBundle:AlbumPartage alp WITH alb.id = alp.alb_id
 				JOIN AppBundle:Utilisateur uti WITH uti.id = alp.uti_id
-				WHERE uti.id = :uti_id'
-				)
-				->setParameter('uti_id', $id);
-				
-		$albums = $query->getResult();
+				WHERE uti.id = :uti_id' )->setParameter ( 'uti_id', $id );
+		
+		$albums = $query->getResult ();
+		
+		if (empty($albums)) {
+			return new JsonResponse(['message' => 'Aucun album pargagé n\'a été trouvé'], Response::HTTP_NOT_FOUND);
+		}
 		
 		return $albums;
 	}
@@ -125,20 +77,21 @@ class UtilisateurController extends Controller {
 	 * @Rest\Get("/utilisateurs/{id}/albums")
 	 */
 	public function getUtilisateurAlbumsAction($id, Request $request) {
-		
-		
-		$em = $this->getDoctrine()->getManager();
-		$query = $em->createQuery(
-				'SELECT alb.id, alb.titre, alb.date_creation, alb.uti_id
+		$em = $this->getDoctrine ()->getManager ();
+		$query = $em->createQuery ('
+				SELECT alb.id, alb.titre, alb.date_creation, alb.uti_id
 				FROM AppBundle:Album alb
 				JOIN AppBundle:Utilisateur uti WITH uti.id = alb.uti_id
-				WHERE uti.id = :uti_id'
-				)
-				->setParameter('uti_id', $id);
-				
-				$albums = $query->getResult();
-				
-				return $albums;
+				WHERE uti.id = :uti_id
+				' )->setParameter ( 'uti_id', $id );
+		
+		$albums = $query->getResult ();
+		
+		if (empty($albums)) {
+			return new JsonResponse(['message' => 'Aucun album trouvé'], Response::HTTP_NOT_FOUND);
+		}
+		
+		return $albums;
 	}
 	
 	/**
@@ -146,38 +99,21 @@ class UtilisateurController extends Controller {
 	 * @Rest\Get("/utilisateurs/{id}/amis")
 	 */
 	public function getUtilisateurAmisAction($id, Request $request) {
-		
-		
-		$em = $this->getDoctrine()->getManager();
-		$query = $em->createQuery(
-				'SELECT uti.id, uti.nom, uti.prenom, uti.email
+		$em = $this->getDoctrine ()->getManager ();
+		$query = $em->createQuery ('
+				SELECT uti.id, uti.nom, uti.prenom, uti.email
 				FROM AppBundle:Utilisateur uti
 				JOIN AppBundle:Ami ami WITH uti.id = ami.ami_id
-				WHERE ami.uti_id = :uti_id'
-				)
-				->setParameter('uti_id', $id);
-				
-				$albums = $query->getResult();
-				
-				return $albums;
-	}
-	
-	/**
-	 * @Rest\View()
-	 * @Rest\Get("/utilisateurs/{id}/albums")
-	 */
-	
-	/*public function getUtilisateurAlbumsAction($id) {
-		$album = $this->get ( 'doctrine.orm.entity_manager' )->getRepository ( 'AppBundle:Albums' )->find ( $id);
-		/* @var $album Album */
+				WHERE ami.uti_id = :uti_id
+		' )->setParameter ( 'uti_id', $id );
 		
-	/*	if (empty ( $album )) {
-			return new JsonResponse ( [
-					'message' => 'Album non trouve'
-			], Response::HTTP_NOT_FOUND );
+		$albums = $query->getResult ();
+		
+		if (empty($albums)) {
+			return new JsonResponse(['message' => 'Aucun ami trouvé'], Response::HTTP_NOT_FOUND);
 		}
 		
-		return $album;
+		return $albums;
 	}
 	
 	/**
@@ -186,11 +122,18 @@ class UtilisateurController extends Controller {
 	 */
 	public function postUtilisateursAction(Request $request) {
 		$utilisateur = new Utilisateur ();
-		$utilisateur->setNom ( $request->get ( 'uti_nom' ) )->setPrenom ( $request->get ( 'uti_prenom' ) )->setEmail ( $request->get ( 'uti_email' ) )->setMotDePass ( $request->get ( 'uti_mot_de_pass' ) );
 		
-		$em = $this->get ( 'doctrine.orm.entity_manager' );
-		$em->persist ( $utilisateur );
-		$em->flush ();
+		$form = $this->createForm(UtilisateurType::class, $utilisateur);
+		$form->submit($request->request->all());
+		
+		if ($form->isValid()) {
+			$em = $this->get('doctrine.orm.entity_manager');
+			$em->persist($utilisateur);
+			$em->flush();
+			return $utilisateur;
+		} else {
+			return $form;
+		}
 	}
 	
 	/**
