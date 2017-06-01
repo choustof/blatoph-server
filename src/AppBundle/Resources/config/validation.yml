@@ -44,8 +44,11 @@ AppBundle\Entity\Photo:
             - Type: string
         image:
             - NotBlank: ~
-            - Type: string
+            - File : 
         alb_id:
+            - NotBlank: ~
+            - Type: integer
+        uti_id:
             - NotBlank: ~
             - Type: integer
      

@@ -2,10 +2,15 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File as File;
+use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\DomCrawler\Image;
 
 /**
  * @ORM\Entity()
  * @ORM\Table(name="photos")
+ * @Vich\Uploadable
  */
 
 class Photo
@@ -29,12 +34,15 @@ class Photo
 	
 	/**
 	 * @ORM\Column(type="string")
+	 * 
 	 */
 	protected $legende;
 	
-	/**
-	 * @ORM\Column(type="string")
-	 */
+	 /**
+     * @Vich\UploadableField(mapping="image", fileNameProperty="id")
+     *
+     * @var File $image
+     */
 	protected $image;
 	
 	/**
@@ -105,8 +113,12 @@ class Photo
 		$this->legende = $legende;
 		return $this;
 	}
-	
-	public function setImage($image)
+
+	/**
+	 * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $image
+	 *
+	 */
+	public function setImage(File $image)
 	{
 		$this->image = $image;
 		return $this;

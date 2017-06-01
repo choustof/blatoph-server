@@ -13,7 +13,7 @@ class PhotoType extends AbstractType
 		$builder->add('titre');
 		$builder->add('date_creation');
 		$builder->add('legende');
-		$builder->add('image', FileType::class, array('label' => 'Image (JPG file)'));
+		$builder->add('image', 'file');
 		$builder->add('alb_id');
 		$builder->add('uti_id');
 	}
@@ -21,7 +21,7 @@ class PhotoType extends AbstractType
 	public function configureOptions(OptionsResolver $resolver)
 	{
 		$resolver->setDefaults([
-				'data_class' => 'AppBundle\Entity\Album',
+				'data_class' => 'AppBundle\Entity\Photo',
 				'csrf_protection' => false
 		]);
 	}
