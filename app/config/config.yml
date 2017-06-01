@@ -88,4 +88,7 @@ fos_user:
         address: "noreply@yourcompany.com"
         sender_name: "No Reply"
         
+vich_uploader:
+    db_driver: orm
+        
         
