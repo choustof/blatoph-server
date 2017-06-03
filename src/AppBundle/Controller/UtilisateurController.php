@@ -53,6 +53,32 @@ class UtilisateurController extends Controller {
 	
 	/**
 	 * @Rest\View()
+	 * @Rest\Get("/utilisateurs/{mail}/{mdp}")
+	 * 
+	 * Methode qui disparaitra une fois que FOSUSERBUNDLE sera utiisé
+	 */
+	public function getUtilisateurByUsernameMdpAction($mail, $mdp) {
+		$em = $this->getDoctrine ()->getManager ();
+		$query = $em->createQuery ( 'SELECT uti.id
+				FROM AppBundle:Utilisateur uti
+				WHERE uti.email = :mail
+				AND uti.mot_de_pass = :mdp' )->setParameters ( array(
+						'mail'=> $mail,
+						'mdp' => $mdp
+						)
+				);
+		
+		$utilisateur = $query->getResult ();
+		
+		if (empty($utilisateur)) {
+			return new JsonResponse(['message' => 'Aucun utilisateur  n\'a été trouvé'], Response::HTTP_NOT_FOUND);
+		}
+		
+		return $utilisateur;
+	}
+	
+	/**
+	 * @Rest\View()
 	 * @Rest\Get("/utilisateurs/{id}/albumPartages")
 	 */
 	public function getUtilisateurAlbumPartagesAction($id, Request $request) {
