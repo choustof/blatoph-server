@@ -142,5 +142,4 @@ class Photo
 		$this->uti_id = $uti_id;
 		return $this;
 	}
-
 }
