@@ -21,8 +21,9 @@ class PhotoController extends Controller {
 	 * @Rest\Get("/photos")
 	 */
 	
-	public function getPhotosAction(Request $request) {
-		$photos = $this->get ( 'doctrine.orm.entity_manager' )->getRepository ( 'AppBundle:Photo' )->findAll ();
+	public function getPhotosAction(Request $request) { 
+		
+		$photos = $this->get ('doctrine.orm.entity_manager' )->getRepository ( 'AppBundle:Photo' )->findAll ();
 		/* @var $Photos Photo[] */
 		
 		if (empty($photos)) {
@@ -55,6 +56,7 @@ class PhotoController extends Controller {
 	 */
 	public function postPhotosAction(Request $request)
 	{
+		
 		$photo = new Photo();
 		
 		$form = $this->createForm(PhotoType::class, $photo);
@@ -62,6 +64,9 @@ class PhotoController extends Controller {
 		
 		if ($form->isValid()) {
 			$em = $this->get('doctrine.orm.entity_manager');
+			
+			$photo->uploadPhoto();
+			
 			$em->persist($photo);
 			$em->flush();
 			return $photo;

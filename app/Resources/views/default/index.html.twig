@@ -74,3 +74,17 @@
     }
 </style>
 {% endblock %}
+
+{% if photo.titre %}
+	<img src="{{ asset(photo.getPath()) }}"/>
+{% else %}
+	Pas de photo chargée
+{% endif %}
+
+<h1>Charger photo</h1>
+<form action="#" method="post"{{  form_enctyper(form) }}>
+	{{ form_widget (form) }}
+	
+	<input type="submit" value="Uploader" />
+</form>
+	

@@ -5,7 +5,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File as File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
-use Symfony\Component\DomCrawler\Image;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @ORM\Entity()
@@ -38,12 +38,9 @@ class Photo
 	 */
 	protected $legende;
 	
-	 /**
-     * @Vich\UploadableField(mapping="image", fileNameProperty="id")
-     *
-     * @var File $image
-     */
-	protected $image;
+	 
+
+	public $image;
 	
 	/**
 	 * @ORM\Column(type="integer")
@@ -55,6 +52,26 @@ class Photo
 	 */
 	protected $uti_id;
 	
+	
+	public function getUploadRootDir()
+	{
+		return 'C:\wamp64\www\blatoph-server\web';
+	}
+	
+	public function getPath(){
+		return null === $this->titre ? null : $this->getUploadRootDir().'\\'.$this->titre;
+	}
+	
+
+	public function uploadPhoto(){
+		
+		$this->image->mov($this->getUploadRootDir(),$this->image->getClientOriginalName());
+		$this->titre = $this->image->getClientOriginalName();
+		$this->image = null;
+	}
+	
+	
+			
 	public function getId()
 	{
 		return $this->id;
@@ -111,16 +128,6 @@ class Photo
 	public function setLegende($legende)
 	{
 		$this->legende = $legende;
-		return $this;
-	}
-
-	/**
-	 * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $image
-	 *
-	 */
-	public function setImage(File $image)
-	{
-		$this->image = $image;
 		return $this;
 	}
 	

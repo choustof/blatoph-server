@@ -23,6 +23,10 @@ class UtilisateurController extends Controller {
 	 * @Rest\Get("/utilisateurs")
 	 */
 	public function getUtilisateursAction(Request $request) {
+		
+		$logger=$this->get('logger');
+		$logger->error("ca passe par GetUtilisateur");
+		
 		$utilisateurs = $this->get ( 'doctrine.orm.entity_manager' )->getRepository ( 'AppBundle:Utilisateur' )->findAll ();
 		/* @var $utilisateurs Utilisateur[] */
 		

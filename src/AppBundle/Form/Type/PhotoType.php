@@ -13,7 +13,7 @@ class PhotoType extends AbstractType
 		$builder->add('titre');
 		$builder->add('date_creation');
 		$builder->add('legende');
-		$builder->add('image', 'file');
+		$builder->add('image');
 		$builder->add('alb_id');
 		$builder->add('uti_id');
 	}
@@ -24,5 +24,9 @@ class PhotoType extends AbstractType
 				'data_class' => 'AppBundle\Entity\Photo',
 				'csrf_protection' => false
 		]);
+	}
+	
+	public function getName(){
+		return 'appbundle_form_phototype';
 	}
 }
