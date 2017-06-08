@@ -13,7 +13,7 @@ class PhotoType extends AbstractType
 		$builder->add('titre');
 		$builder->add('date_creation');
 		$builder->add('legende');
-		$builder->add('image');
+		$builder->add('path');
 		$builder->add('alb_id');
 		$builder->add('uti_id');
 	}

@@ -62,11 +62,24 @@ class PhotoController extends Controller {
 		$form = $this->createForm(PhotoType::class, $photo);
 		$form->submit($request->request->all());
 		
+		$uploadedfile = $request->files->get('image');
+		$directory = 'C:\wamp64\www\blatoph-server\web\images';
+		
+		foreach($request->files as $uploadedFile) {
+			
+			$logger = $this->get('logger');
+			$logger->err('Passage dans photo upload'.$request);
+			
+			$fileName = md5(uniqid()).'.'.$uploadedFile->guessExtension();
+			$file = $uploadedFile->move($directory, $fileName);
+		}
+		
+		
+		//$photo->setPath($directory.random_bytes(10))
+		
 		if ($form->isValid()) {
+			$photo->setPath($directory.'\\'.$fileName);
 			$em = $this->get('doctrine.orm.entity_manager');
-			
-			$photo->uploadPhoto();
-			
 			$em->persist($photo);
 			$em->flush();
 			return $photo;

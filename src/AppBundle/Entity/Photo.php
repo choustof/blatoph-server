@@ -38,9 +38,12 @@ class Photo
 	 */
 	protected $legende;
 	
-	 
 
-	public $image;
+	/**
+	 * @ORM\Column(type="string")
+	 *
+	 */
+	protected $path;
 	
 	/**
 	 * @ORM\Column(type="integer")
@@ -53,7 +56,7 @@ class Photo
 	protected $uti_id;
 	
 	
-	public function getUploadRootDir()
+/*	public function getUploadRootDir()
 	{
 		return 'C:\wamp64\www\blatoph-server\web';
 	}
@@ -68,7 +71,7 @@ class Photo
 		$this->image->mov($this->getUploadRootDir(),$this->image->getClientOriginalName());
 		$this->titre = $this->image->getClientOriginalName();
 		$this->image = null;
-	}
+	}*/
 	
 	
 			
@@ -92,9 +95,9 @@ class Photo
 		return $this->legende;
 	}
 	
-	public function getImage()
+	public function getPath()
 	{
-		return $this->image;
+		return $this->path;
 	}
 	
 	public function getAlbId()
@@ -128,6 +131,12 @@ class Photo
 	public function setLegende($legende)
 	{
 		$this->legende = $legende;
+		return $this;
+	}
+	
+	public function setPath($path)
+	{
+		$this->path = $path;
 		return $this;
 	}
 	

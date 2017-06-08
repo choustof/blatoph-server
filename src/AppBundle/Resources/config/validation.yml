@@ -42,9 +42,6 @@ AppBundle\Entity\Photo:
         legende:
             - NotBlank: ~
             - Type: string
-        image:
-            - NotBlank: ~
-            - File : 
         alb_id:
             - NotBlank: ~
             - Type: integer
