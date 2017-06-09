@@ -58,10 +58,9 @@ class AlbumController extends Controller {
 		
 		$em = $this->getDoctrine()->getManager();
 		$query = $em->createQuery(
-				'SELECT ph.id, ph.titre, ph.date_creation, ph.legende, ph.image, ph.alb_id
+				'SELECT ph.id, ph.titre, ph.date_creation, ph.legende, ph.path, ph.alb_id, ph.uti_id
 				FROM AppBundle:Photo ph
-				JOIN AppBundle:Album alb WITH alb.id = ph.alb_id
-				WHERE alb.id = :alb_id'
+				WHERE ph.alb_id = :alb_id'
 				)
 				->setParameter('alb_id', $id);
 				

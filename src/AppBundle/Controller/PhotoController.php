@@ -64,6 +64,7 @@ class PhotoController extends Controller {
 		
 		$uploadedfile = $request->files->get('image');
 		$directory = 'C:\wamp64\www\blatoph-server\web\images';
+		$fileName = '';
 		
 		foreach($request->files as $uploadedFile) {
 			
@@ -78,7 +79,7 @@ class PhotoController extends Controller {
 		//$photo->setPath($directory.random_bytes(10))
 		
 		if ($form->isValid()) {
-			$photo->setPath($directory.'\\'.$fileName);
+			$photo->setPath($fileName);
 			$em = $this->get('doctrine.orm.entity_manager');
 			$em->persist($photo);
 			$em->flush();

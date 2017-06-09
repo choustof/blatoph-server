@@ -24,9 +24,6 @@ class UtilisateurController extends Controller {
 	 */
 	public function getUtilisateursAction(Request $request) {
 		
-		$logger=$this->get('logger');
-		$logger->error("ca passe par GetUtilisateur");
-		
 		$utilisateurs = $this->get ( 'doctrine.orm.entity_manager' )->getRepository ( 'AppBundle:Utilisateur' )->findAll ();
 		/* @var $utilisateurs Utilisateur[] */
 		
@@ -55,39 +52,17 @@ class UtilisateurController extends Controller {
 		return $utilisateur;
 	}
 	
-	/**
-	 * @Rest\View()
-	 * @Rest\Get("/utilisateurs/{mail}/{mdp}")
-	 * 
-	 * Methode qui disparaitra une fois que FOSUSERBUNDLE sera utiisé
-	 */
-	public function getUtilisateurByUsernameMdpAction($mail, $mdp) {
-		$em = $this->getDoctrine ()->getManager ();
-		$query = $em->createQuery ( 'SELECT uti.id
-				FROM AppBundle:Utilisateur uti
-				WHERE uti.email = :mail
-				AND uti.mot_de_pass = :mdp' )->setParameters ( array(
-						'mail'=> $mail,
-						'mdp' => $mdp
-						)
-				);
-		
-		$utilisateur = $query->getResult ();
-		
-		if (empty($utilisateur)) {
-			return new JsonResponse(['message' => 'Aucun utilisateur  n\'a été trouvé'], Response::HTTP_NOT_FOUND);
-		}
-		
-		return $utilisateur;
-	}
+	
 	
 	/**
 	 * @Rest\View()
 	 * @Rest\Get("/utilisateurs/{id}/albumPartages")
 	 */
 	public function getUtilisateurAlbumPartagesAction($id, Request $request) {
+		
 		$em = $this->getDoctrine ()->getManager ();
-		$query = $em->createQuery ( 'SELECT alb.id, alb.titre, alb.date_creation, alb.uti_id
+		$query = $em->createQuery ( '
+				SELECT alb.id, alb.titre, alb.date_creation, alb.uti_id
 				FROM AppBundle:Album alb
 				JOIN AppBundle:AlbumPartage alp WITH alb.id = alp.alb_id
 				JOIN AppBundle:Utilisateur uti WITH uti.id = alp.uti_id
@@ -107,6 +82,7 @@ class UtilisateurController extends Controller {
 	 * @Rest\Get("/utilisateurs/{id}/albums")
 	 */
 	public function getUtilisateurAlbumsAction($id, Request $request) {
+		
 		$em = $this->getDoctrine ()->getManager ();
 		$query = $em->createQuery ('
 				SELECT alb.id, alb.titre, alb.date_creation, alb.uti_id
@@ -129,6 +105,8 @@ class UtilisateurController extends Controller {
 	 * @Rest\Get("/utilisateurs/{id}/amis")
 	 */
 	public function getUtilisateurAmisAction($id, Request $request) {
+	
+	
 		$em = $this->getDoctrine ()->getManager ();
 		$query = $em->createQuery ('
 				SELECT uti.id, uti.nom, uti.prenom, uti.email
@@ -144,6 +122,32 @@ class UtilisateurController extends Controller {
 		}
 		
 		return $albums;
+	}
+	
+	/**
+	 * @Rest\View()
+	 * @Rest\Get("/utilisateurs/{mail}/{mdp}")
+	 *
+	 * Methode qui disparaitra une fois que FOSUSERBUNDLE sera utiisé
+	 */
+	public function getUtilisateurByUsernameMdpAction($mail, $mdp) {
+		$em = $this->getDoctrine ()->getManager ();
+		$query = $em->createQuery ( 'SELECT uti.id
+				FROM AppBundle:Utilisateur uti
+				WHERE uti.email = :mail
+				AND uti.mot_de_pass = :mdp' )->setParameters ( array(
+						'mail'=> $mail,
+						'mdp' => $mdp
+				)
+						);
+		
+		$utilisateur = $query->getResult ();
+		
+		if (empty($utilisateur)) {
+			return new JsonResponse(['message' => 'Aucun utilisateur  n\'a été trouvé'], Response::HTTP_NOT_FOUND);
+		}
+		
+		return $utilisateur;
 	}
 	
 	/**
