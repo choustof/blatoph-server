@@ -75,9 +75,6 @@ class PhotoController extends Controller {
 			$file = $uploadedFile->move($directory, $fileName);
 		}
 		
-		
-		//$photo->setPath($directory.random_bytes(10))
-		
 		if ($form->isValid()) {
 			$photo->setPath($fileName);
 			$em = $this->get('doctrine.orm.entity_manager');
