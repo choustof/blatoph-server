@@ -37,6 +37,12 @@ class Utilisateur
 	 */
 	protected $mot_de_pass;
 	
+	/**
+     * @ORM\Column(type="string")
+	 */
+	protected $albumCourant_id;
+	
+	
 	public function getId()
 	{
 		return $this->id;
@@ -60,6 +66,15 @@ class Utilisateur
 	public function getMotDePass()
 	{
 		return $this->mot_de_pass;
+	}
+	
+	public function getAlbumCourant_id(){
+		return $this->album_courant_id;
+	}
+	
+	public function setAlbumCourant_id($album_courant_id){
+		$this->album_courant_id=$album_courant_id;
+		return $this;
 	}
 	
 	public function setId($id)
