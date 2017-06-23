@@ -40,7 +40,7 @@ class Utilisateur
 	/**
      * @ORM\Column(type="string")
 	 */
-	protected $albumCourant_id;
+	protected $album_courant_id;
 	
 	
 	public function getId()
@@ -68,12 +68,12 @@ class Utilisateur
 		return $this->mot_de_pass;
 	}
 	
-	public function getAlbumCourant_id(){
+	public function getAlbumCourantId(){
 		return $this->album_courant_id;
 	}
 	
-	public function setAlbumCourant_id($album_courant_id){
-		$this->album_courant_id=$album_courant_id;
+	public function setAlbumCourantId($album_courant_id){
+		$this->album_courant_id = $album_courant_id;
 		return $this;
 	}
 	
