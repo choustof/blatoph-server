@@ -40,7 +40,7 @@ class Utilisateur
 	/**
      * @ORM\Column(type="string", nullable=true)
 	 */
-	protected $albumCourant_id;
+	protected $album_courant_id;
 	
 	/**
 	 * @ORM\Column(type="string", nullable=true)
@@ -73,6 +73,7 @@ class Utilisateur
 		return $this->mot_de_pass;
 	}
 	
+<<<<<<< HEAD
 	public function getToken()
 	{
 		return $this->token;
@@ -84,6 +85,14 @@ class Utilisateur
 	
 	public function setAlbumCourantId($albumCourant_id){
 		$this->albumCourant_id=$albumCourant_id;
+=======
+	public function getAlbumCourantId(){
+		return $this->album_courant_id;
+	}
+	
+	public function setAlbumCourantId($album_courant_id){
+		$this->album_courant_id = $album_courant_id;
+>>>>>>> 9d8fd2033fc638d1206b760e9bb48a045111398d
 		return $this;
 	}
 	
