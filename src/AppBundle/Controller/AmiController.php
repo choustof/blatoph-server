@@ -111,4 +111,18 @@ class AmiController extends Controller {
 			$em->flush ();
 		}
 	}
+	
+	
+	public function sendMail($name)
+	{
+		$message = \Swift_Message::newInstance()
+		->setSubject('Viens, on est bien')
+		->setFrom('bba@free.com')
+		->setTo('nonInscrit@gmail.com') //voir comment on gère pour que l'utilisateur 
+		->setBody($this->renderView('HelloBundle:Hello:email.txt.twig', array('name' => $name)));
+		
+		$this->get('mailer')->send($message);
+		
+		return $this->render();
+	}
 }

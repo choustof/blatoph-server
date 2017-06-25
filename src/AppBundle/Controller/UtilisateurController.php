@@ -24,6 +24,9 @@ class UtilisateurController extends Controller {
 	 */
 	public function getUtilisateursAction(Request $request) {
 		
+		$token = md5(uniqid());
+		
+		
 		$utilisateurs = $this->get ( 'doctrine.orm.entity_manager' )->getRepository ( 'AppBundle:Utilisateur' )->findAll ();
 		/* @var $utilisateurs Utilisateur[] */
 		
@@ -128,10 +131,14 @@ class UtilisateurController extends Controller {
 	 * @Rest\View()
 	 * @Rest\Get("/utilisateurs/{mail}/{mdp}")
 	 *
-	 * Methode qui disparaitra une fois que FOSUSERBUNDLE sera utiisé
+	 * Methode qui disparaitra une fois que FOSUSERBUNDLE sera utilisé
 	 */
-	public function getUtilisateurByUsernameMdpAction($mail, $mdp) {
+	public function getUtilisateurByUsernameMdpAction($mail, $mdp, $token) {
 		$em = $this->getDoctrine ()->getManager ();
+		
+		$token = '';
+		$token = md5(uniqid());
+		
 		$query = $em->createQuery ( 'SELECT uti.id
 				FROM AppBundle:Utilisateur uti
 				WHERE uti.email = :mail
@@ -160,6 +167,7 @@ class UtilisateurController extends Controller {
 		$form = $this->createForm(UtilisateurType::class, $utilisateur);
 		$form->submit($request->request->all());
 		
+			
 		if ($form->isValid()) {
 			$em = $this->get('doctrine.orm.entity_manager');
 			$em->persist($utilisateur);
