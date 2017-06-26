@@ -133,6 +133,31 @@ class UtilisateurController extends Controller {
 	
 	/**
 	 * @Rest\View()
+	 * @Rest\Get("/utilisateurs/token/{token}")
+	 */
+	public function getUtilisateurByTokenAction($token) {
+		$em = $this->getDoctrine ()->getManager ();
+		
+		$query = $em->createQuery ( 'SELECT uti.id
+				FROM AppBundle:Utilisateur uti
+				WHERE uti.token = :token')->setParameters (
+						array(
+								'token'=> $token)
+						);
+		
+		$utilisateur = $query->getResult ();
+		
+		if (empty($utilisateur)) {
+			return new JsonResponse ( [
+					'message' => 'Aucun utilisateur trouve'
+			], Response::HTTP_NOT_FOUND );
+		}
+		
+		return $utilisateur;
+	}
+	
+	/**
+	 * @Rest\View()
 	 * @Rest\Get("/utilisateurs/ami/{email}")
 	 */
 	public function getUtilisateurByUsernameAction($email) {
