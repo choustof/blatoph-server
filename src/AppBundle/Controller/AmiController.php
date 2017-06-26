@@ -78,7 +78,12 @@ class AmiController extends Controller {
 	 * @Rest\View()
 	 * @Rest\Put("/amis/{id}")
 	 */
-	public function updateAmiAction(Request $request) {
+	public function PatchAmiAction(Request $request)
+	{
+		return $this->updateAmiAction($request, false);
+	}
+	
+	public function updateAmiAction(Request $request, $clearMissing) {
 		
 		/* @var $ami Ami */
 		if (empty ( $ami )) {
@@ -89,7 +94,7 @@ class AmiController extends Controller {
 		
 		$form = $this->createForm ( AmiType::class, $ami );
 		
-		$form->submit ( $request->request->all () );
+		$form->submit ( $request->request->all (), $clearMissing);
 		
 		if ($form->isValid ()) {
 			$em = $this->get ( 'doctrine.orm.entity_manager' );

@@ -94,7 +94,12 @@ class PhotoController extends Controller {
 	 * @Rest\View()
 	 * @Rest\Put("/photos/{id}")
 	 */
-	public function updatePhotoAction(Request $request) {
+	
+	public function PatchPhotoAction(Request $request)
+	{
+		return $this->updatePhotoAction($request, false);
+	}
+	public function updatePhotoAction(Request $request, $clearMissing) {
 		
 		/* @var $photo Photo */
 		if (empty ( $photo )) {
@@ -105,7 +110,7 @@ class PhotoController extends Controller {
 		
 		$form = $this->createForm ( PhotoType::class, $photo );
 		
-		$form->submit ( $request->request->all () );
+		$form->submit ( $request->request->all (), $clearMissing);
 		
 		if ($form->isValid ()) {
 			$em = $this->get ( 'doctrine.orm.entity_manager' );

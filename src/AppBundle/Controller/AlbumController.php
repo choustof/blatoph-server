@@ -78,6 +78,7 @@ class AlbumController extends Controller {
 	 * @Rest\View(statusCode=Response::HTTP_CREATED)
 	 * @Rest\Post("/albums")
 	 */
+	
 	public function postAlbumAction(Request $request)
 	{
 		$album = new Album();
@@ -99,7 +100,11 @@ class AlbumController extends Controller {
 	 * @Rest\View()
 	 * @Rest\Put("/albums/{id}")
 	 */
-	public function updateAlbumAction(Request $request) {
+	public function patchAlbumAction(Request $request)
+	{
+		return $this->updateAlbumAction($request, false);
+	}
+	public function updateAlbumAction(Request $request, $clearMissing) {
 		$album = $this->get('doctrine.orm.entity_manager')
 					  ->getRepository('AppBundle:Album')
 					  ->find($request->get('id')); 
@@ -113,7 +118,7 @@ class AlbumController extends Controller {
 		
 		$form = $this->createForm ( AlbumType::class, $album );
 		
-		$form->submit ( $request->request->all () );
+		$form->submit ( $request->request->all (), $clearMissing);
 		
 		if ($form->isValid ()) {
 			$em = $this->get ( 'doctrine.orm.entity_manager' );

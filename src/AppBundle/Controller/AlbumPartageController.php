@@ -78,7 +78,11 @@ class AlbumPartageController extends Controller {
 	 * @Rest\View()
 	 * @Rest\Put("/albumPartages/{id}")
 	 */
-	public function updateAlbumPartageAction(Request $request) {
+	public function patchAlbumPartageAction(Request $request)
+	{
+		return $this->updateAlbumPartageAction($request, false);
+	}
+	public function updateAlbumPartageAction(Request $request, $clearMissing) {
 		
 		/* @var $albumPartage AlbumPartage */
 		if (empty ( $albumPartage )) {
@@ -89,7 +93,7 @@ class AlbumPartageController extends Controller {
 		
 		$form = $this->createForm ( AlbumPartageType::class, $albumPartage );
 		
-		$form->submit ( $request->request->all () );
+		$form->submit ( $request->request->all (), $clearMissing);
 		
 		if ($form->isValid ()) {
 			$em = $this->get ( 'doctrine.orm.entity_manager' );
