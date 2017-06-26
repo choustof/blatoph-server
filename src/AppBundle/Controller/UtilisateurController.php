@@ -117,6 +117,7 @@ class UtilisateurController extends Controller {
 				FROM AppBundle:Utilisateur uti
 				JOIN AppBundle:Ami ami WITH uti.id = ami.ami_id
 				WHERE ami.uti_id = :uti_id
+				ORDER BY uti.nom
 		' )->setParameter ( 'uti_id', $id );
 		
 		$albums = $query->getResult ();
