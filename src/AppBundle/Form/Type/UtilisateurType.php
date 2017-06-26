@@ -13,7 +13,7 @@ class UtilisateurType extends AbstractType
 		$builder->add('prenom');
 		$builder->add('email');
 		$builder->add('mot_de_pass');
-		$builder->add('albumCourant_id');
+		$builder->add('album_courant_id');
 		$builder->add('token');
 	}
 	

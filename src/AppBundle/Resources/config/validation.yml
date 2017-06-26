@@ -14,6 +14,8 @@ AppBundle\Entity\Utilisateur:
         mot_de_pass:
             - NotBlank: ~
             - Type: string
+        album_courant_id:
+            - Type: string
             
 AppBundle\Entity\Album:
     constraints:
