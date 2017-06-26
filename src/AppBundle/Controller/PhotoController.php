@@ -27,7 +27,9 @@ class PhotoController extends Controller {
 		/* @var $Photos Photo[] */
 		
 		if (empty($photos)) {
-			return new JsonResponse(['message' => 'Aucune photo trouvee'], Response::HTTP_NOT_FOUND);
+			return new JsonResponse ( [
+					'message' => 'Aucune photo trouvee'
+			], Response::HTTP_NOT_FOUND );
 		}
 		
 		return $photos;
@@ -43,7 +45,9 @@ class PhotoController extends Controller {
 		/* @var $photo Photo */
 		
 		if (empty($photo)) {
-			return new JsonResponse(['message' => 'Photo non trouvee'], Response::HTTP_NOT_FOUND);
+			return new JsonResponse ( [
+					'message' => 'Aucune photo trouvee'
+			], Response::HTTP_NOT_FOUND );
 		}
 		
 		// Gestion de la réponse

@@ -73,26 +73,21 @@ class Utilisateur
 		return $this->mot_de_pass;
 	}
 	
-<<<<<<< HEAD
+
 	public function getToken()
 	{
 		return $this->token;
 	}
 	
 	public function getAlbumCourantId(){
-		return $this->albumCourant_id;
-	}
-	
-	public function setAlbumCourantId($albumCourant_id){
-		$this->albumCourant_id=$albumCourant_id;
-=======
-	public function getAlbumCourantId(){
 		return $this->album_courant_id;
 	}
 	
-	public function setAlbumCourantId($album_courant_id){
-		$this->album_courant_id = $album_courant_id;
->>>>>>> 9d8fd2033fc638d1206b760e9bb48a045111398d
+	
+	
+	public function setAlbumCourantId($album_courant_id)
+	{
+		$this->album_courant_id=$album_courant_id;
 		return $this;
 	}
 	
@@ -124,5 +119,10 @@ class Utilisateur
 	{
 		$this->mot_de_pass = $mot_de_pass;
 		return $this;
+	}
+	
+	public function setToken($token){
+		$this->token = $token;
+		return $this;		
 	}
 }

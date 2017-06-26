@@ -24,9 +24,6 @@ class UtilisateurController extends Controller {
 	 */
 	public function getUtilisateursAction(Request $request) {
 		
-		$token = md5(uniqid());
-		
-		
 		$utilisateurs = $this->get ( 'doctrine.orm.entity_manager' )->getRepository ( 'AppBundle:Utilisateur' )->findAll ();
 		/* @var $utilisateurs Utilisateur[] */
 		
@@ -47,8 +44,8 @@ class UtilisateurController extends Controller {
 		/* @var $utilisateur Utilisateur */
 		
 		if (empty ( $utilisateur )) {
-			return new JsonResponse ( [ 
-					'message' => 'Utilisateur non trouve' 
+			return new JsonResponse ( [
+					'message' => 'Aucun utilisateur trouve'
 			], Response::HTTP_NOT_FOUND );
 		}
 		
@@ -74,7 +71,9 @@ class UtilisateurController extends Controller {
 		$albums = $query->getResult ();
 		
 		if (empty($albums)) {
-			return new JsonResponse(['message' => 'Aucun album pargagé n\'a été trouvé'], Response::HTTP_NOT_FOUND);
+			return new JsonResponse ( [
+					'message' => 'Aucun utilisateur trouve'
+			], Response::HTTP_NOT_FOUND );
 		}
 		
 		return $albums;
@@ -97,7 +96,9 @@ class UtilisateurController extends Controller {
 		$albums = $query->getResult ();
 		
 		if (empty($albums)) {
-			return new JsonResponse(['message' => 'Aucun album trouvé'], Response::HTTP_NOT_FOUND);
+			return new JsonResponse ( [
+					'message' => 'Aucun utilisateur trouve'
+			], Response::HTTP_NOT_FOUND );
 		}
 		
 		return $albums;
@@ -121,10 +122,37 @@ class UtilisateurController extends Controller {
 		$albums = $query->getResult ();
 		
 		if (empty($albums)) {
-			return new JsonResponse(['message' => 'Aucun ami trouvé'], Response::HTTP_NOT_FOUND);
+			return new JsonResponse ( [
+					'message' => 'Aucun utilisateur trouve'
+			], Response::HTTP_NOT_FOUND );
 		}
 		
 		return $albums;
+	}
+	
+	/**
+	 * @Rest\View()
+	 * @Rest\Get("/utilisateurs/ami/{email}")
+	 */
+	public function getUtilisateurByUsernameAction($email) {
+		$em = $this->getDoctrine ()->getManager ();
+		
+		$query = $em->createQuery ( 'SELECT uti.id
+				FROM AppBundle:Utilisateur uti
+				WHERE uti.email = :email')->setParameters ( 
+						array(
+						'email'=> $email)
+						);
+		
+		$utilisateur = $query->getResult ();
+		
+		if (empty($utilisateur)) {
+			return new JsonResponse ( [
+					'message' => 'Aucun utilisateur trouve'
+			], Response::HTTP_NOT_FOUND );
+		}
+		
+		return $utilisateur;
 	}
 	
 	/**
@@ -133,11 +161,8 @@ class UtilisateurController extends Controller {
 	 *
 	 * Methode qui disparaitra une fois que FOSUSERBUNDLE sera utilisé
 	 */
-	public function getUtilisateurByUsernameMdpAction($mail, $mdp, $token) {
+	public function getUtilisateurByUsernameMdpAction($mail, $mdp) {
 		$em = $this->getDoctrine ()->getManager ();
-		
-		$token = '';
-		$token = md5(uniqid());
 		
 		$query = $em->createQuery ( 'SELECT uti.id
 				FROM AppBundle:Utilisateur uti
@@ -151,7 +176,9 @@ class UtilisateurController extends Controller {
 		$utilisateur = $query->getResult ();
 		
 		if (empty($utilisateur)) {
-			return new JsonResponse(['message' => 'Aucun utilisateur  n\'a été trouvé'], Response::HTTP_NOT_FOUND);
+			return new JsonResponse ( [
+					'message' => 'Aucun utilisateur trouve'
+			], Response::HTTP_NOT_FOUND );
 		}
 		
 		return $utilisateur;
@@ -167,8 +194,10 @@ class UtilisateurController extends Controller {
 		$form = $this->createForm(UtilisateurType::class, $utilisateur);
 		$form->submit($request->request->all());
 		
+		$token = md5(uniqid());
 			
 		if ($form->isValid()) {
+			$utilisateur->setToken($token);
 			$em = $this->get('doctrine.orm.entity_manager');
 			$em->persist($utilisateur);
 			$em->flush();
@@ -187,8 +216,8 @@ class UtilisateurController extends Controller {
 		/* @var $utilisateur Utilisateur */
 		
 		if (empty ( $utilisateur )) {
-			return new JsonResponse ( [ 
-					'message' => 'Utilisateur non trouvé' 
+			return new JsonResponse ( [
+					'message' => 'Aucun utilisateur trouve'
 			], Response::HTTP_NOT_FOUND );
 		}
 		

@@ -26,7 +26,9 @@ class AlbumPartageController extends Controller {
 		/* @var $albumPartages AlbumPartage[] */
 		
 		if (empty($albumPartages)) {
-			return new JsonResponse(['message' => 'Aucun album trouve'], Response::HTTP_NOT_FOUND);
+			return new JsonResponse ( [
+					'message' => 'Aucun album partage trouve'
+			], Response::HTTP_NOT_FOUND );
 		}
 		
 		return $albumPartages;
@@ -42,7 +44,9 @@ class AlbumPartageController extends Controller {
 		/* @var $albumPartage AlbumPartage */
 		
 		if (empty($albumPartage)) {
-			return new JsonResponse(['message' => 'Album non trouve'], Response::HTTP_NOT_FOUND);
+			return new JsonResponse ( [
+					'message' => 'Aucun album partage trouve'
+			], Response::HTTP_NOT_FOUND );
 		}
 		
 		// Gestion de la réponse
@@ -79,7 +83,7 @@ class AlbumPartageController extends Controller {
 		/* @var $albumPartage AlbumPartage */
 		if (empty ( $albumPartage )) {
 			return new JsonResponse ( [
-					'message' => 'Album non trouvé'
+					'message' => 'Aucun album partage trouve'
 			], Response::HTTP_NOT_FOUND );
 		}
 		

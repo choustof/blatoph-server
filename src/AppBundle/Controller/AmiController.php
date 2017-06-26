@@ -26,7 +26,9 @@ class AmiController extends Controller {
 		/* @var $amis Ami[] */
 		
 		if (empty($amis)) {
-			return new JsonResponse(['message' => 'Aucun ami trouve'], Response::HTTP_NOT_FOUND);
+			return new JsonResponse ( [
+					'message' => 'Aucun ami trouve'
+			], Response::HTTP_NOT_FOUND );
 		}
 		
 		return $amis;
@@ -42,7 +44,9 @@ class AmiController extends Controller {
 		/* @var $ami Ami */
 		
 		if (empty($ami)) {
-			return new JsonResponse(['message' => 'Ami non trouve'], Response::HTTP_NOT_FOUND);
+			return new JsonResponse ( [
+					'message' => 'Aucun ami trouve'
+			], Response::HTTP_NOT_FOUND );
 		}
 		
 		// Gestion de la réponse
@@ -79,7 +83,7 @@ class AmiController extends Controller {
 		/* @var $ami Ami */
 		if (empty ( $ami )) {
 			return new JsonResponse ( [
-					'message' => 'Ami non trouvé'
+					'message' => 'Aucun ami trouve'
 			], Response::HTTP_NOT_FOUND );
 		}
 		

@@ -26,7 +26,9 @@ class AlbumController extends Controller {
 		/* @var $albums Album[] */
 		
 		if (empty($albums)) {
-			return new JsonResponse(['message' => 'Aucun album trouve'], Response::HTTP_NOT_FOUND);
+			return new JsonResponse ( [
+					'message' => 'Aucun album trouve'
+			], Response::HTTP_NOT_FOUND );
 		}
 		
 		return $albums;
@@ -42,7 +44,9 @@ class AlbumController extends Controller {
 		/* @var $album Album */
 		
 		if (empty($album)) {
-			return new JsonResponse(['message' => 'Album non trouve'], Response::HTTP_NOT_FOUND);
+			return new JsonResponse ( [
+					'message' => 'Aucun album trouve'
+			], Response::HTTP_NOT_FOUND );
 		}
 		
 		// Gestion de la réponse
@@ -103,7 +107,7 @@ class AlbumController extends Controller {
 		/* @var $album Album */
 		if (empty ( $album )) {
 			return new JsonResponse ( [
-					'message' => 'Album non trouvé'
+					'message' => 'Aucun album trouve'
 			], Response::HTTP_NOT_FOUND );
 		}
 		
