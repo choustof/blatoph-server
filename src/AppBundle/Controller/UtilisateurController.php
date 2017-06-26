@@ -211,7 +211,14 @@ class UtilisateurController extends Controller {
 	 * @Rest\View()
 	 * @Rest\Put("/utilisateurs/{id}")
 	 */
-	public function updateUtilisateurAction(Request $request) {
+	
+	
+	public function patchUtilisateurAction(Request $request)
+	{
+		return $this->updateUtilisateurAction($request, false);
+	}
+	
+	public function updateUtilisateurAction(Request $request, $clearMissing) {
 		$utilisateur = $this->get ( 'doctrine.orm.entity_manager' )->getRepository ( 'AppBundle:Utilisateur' )->find ( $request->get ( 'id' ) );
 		/* @var $utilisateur Utilisateur */
 		
@@ -223,7 +230,7 @@ class UtilisateurController extends Controller {
 		
 		$form = $this->createForm ( UtilisateurType::class, $utilisateur );
 		
-		$form->submit ( $request->request->all () );
+		$form->submit ( $request->request->all (), $clearMissing);
 		
 		if ($form->isValid ()) {
 			$em = $this->get ( 'doctrine.orm.entity_manager' );
