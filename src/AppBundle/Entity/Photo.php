@@ -33,7 +33,7 @@ class Photo
 	protected $date_creation;
 	
 	/**
-	 * @ORM\Column(type="string")
+	 * @ORM\Column(type="string", nullable=true)
 	 * 
 	 */
 	protected $legende;
@@ -56,25 +56,6 @@ class Photo
 	protected $uti_id;
 	
 	
-/*	public function getUploadRootDir()
-	{
-		return 'C:\wamp64\www\blatoph-server\web';
-	}
-	
-	public function getPath(){
-		return null === $this->titre ? null : $this->getUploadRootDir().'\\'.$this->titre;
-	}
-	
-
-	public function uploadPhoto(){
-		
-		$this->image->mov($this->getUploadRootDir(),$this->image->getClientOriginalName());
-		$this->titre = $this->image->getClientOriginalName();
-		$this->image = null;
-	}*/
-	
-	
-			
 	public function getId()
 	{
 		return $this->id;
